@@ -11,7 +11,7 @@ from pprint import pprint
 
 
 KEYWORDS = ['дизайн', 'фото', 'web', 'python']
-DELAY = 300
+DELAY = 250 #Что бы исправить selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
 
 
 chrome_path = ChromeDriverManager().install()
@@ -20,7 +20,7 @@ options = ChromeOptions()
 #options.add_argument('--headless')
 browser = Chrome(service=browser_service, options=options)
 
-
+#Функция взята с вебинара по занятию
 def wait_element(browser, delay=5, by=By.TAG_NAME, value=None):
     return WebDriverWait(browser, delay).until(
         expected_conditions.presence_of_element_located((by, value))
@@ -40,7 +40,6 @@ for article in articles_list:
 parsed_data = []
 for link in links:
     browser.get(link)  
-    #print(link)
     title = wait_element(browser=browser, delay=DELAY, by=By.CSS_SELECTOR, value='.tm-title.tm-title_h1 span').text.strip()
     post_time = wait_element(browser=browser, delay=DELAY, by=By.CSS_SELECTOR, value='.tm-article-datetime-published time').get_attribute('title')
     article = wait_element(browser=browser, delay=DELAY, by=By.CSS_SELECTOR, value='.article-formatted-body > div ')
