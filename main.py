@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from pprint import pprint
-
+from logger import logger
 
 KEYWORDS = ['дизайн', 'фото', 'web', 'python']
 DELAY = 250 #Что бы исправить selenium.common.exceptions.StaleElementReferenceException: Message: stale element reference: stale element not found in the current frame
@@ -21,6 +21,7 @@ options = ChromeOptions()
 browser = Chrome(service=browser_service, options=options)
 
 #Функция взята с вебинара по занятию
+@logger('log_getting_web_elements.log')
 def wait_element(browser, delay=5, by=By.TAG_NAME, value=None):
     return WebDriverWait(browser, delay).until(
         expected_conditions.presence_of_element_located((by, value))
